@@ -26,8 +26,13 @@ public partial class ProviderSearchView : UserControl
     }
     private void SearchButton_Click(object sender, RoutedEventArgs e) => LoadProviders();
     private void CriteriaTextChanged(object sender, TextChangedEventArgs e) { if (IsLoaded) LoadProviders(); }
-    private void NewButton_Click(object sender, RoutedEventArgs e) { new ProviderFormView().ShowDialog(); LoadProviders(); }
-    private void EditButton_Click(object sender, RoutedEventArgs e) { if (sender is Button b && b.DataContext is Provider p) { new ProviderFormView(p.IdProveedor).ShowDialog(); LoadProviders(); } }
+    private void NewButton_Click(object sender, RoutedEventArgs e) => ShowForm(null);
+    private void EditButton_Click(object sender, RoutedEventArgs e) { if (sender is Button b && b.DataContext is Provider p) ShowForm(p.IdProveedor); }
+    private void ShowForm(int? id)
+    {
+        FormHost.Content = new ProviderFormView(id, saved => { FormOverlay.Visibility = Visibility.Collapsed; FormHost.Content = null; if (saved) LoadProviders(); });
+        FormOverlay.Visibility = Visibility.Visible;
+    }
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
         if (sender is not Button b || b.DataContext is not Provider p) return;

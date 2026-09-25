@@ -7,10 +7,11 @@ using Semana04NeptunoWpf.Services;
 
 namespace Semana04NeptunoWpf.Views;
 
-public partial class ProviderFormView : Window
+public partial class ProviderFormView : UserControl
 {
     private readonly int? providerId;
-    public ProviderFormView(int? id = null) { InitializeComponent(); providerId = id; if (id.HasValue) { TitleText.Text = "Editar proveedor"; Load(id.Value); } }
+    private readonly Action<bool> closed;
+    public ProviderFormView(int? id, Action<bool> onClosed) { InitializeComponent(); providerId = id; closed = onClosed; if (id.HasValue) { TitleText.Text = "Editar proveedor"; Load(id.Value); } }
     private void Load(int id)
     {
         using SqlConnection c = DatabaseConnection.GetConnection(); using SqlCommand q = new("dbo.usp_Proveedores_ObtenerPorId", c) { CommandType = CommandType.StoredProcedure }; q.Parameters.Add("@IdProveedor", SqlDbType.Int).Value = id; c.Open(); using SqlDataReader r = q.ExecuteReader();
@@ -23,7 +24,7 @@ public partial class ProviderFormView : Window
         using SqlConnection c = DatabaseConnection.GetConnection(); string proc = providerId.HasValue ? "dbo.usp_Proveedores_Actualizar" : "dbo.usp_Proveedores_Insertar"; using SqlCommand q = new(proc, c) { CommandType = CommandType.StoredProcedure };
         if (providerId.HasValue) q.Parameters.Add("@IdProveedor", SqlDbType.Int).Value = providerId.Value;
         Add(q,"@NombreCompania",40,CompanyBox.Text); Add(q,"@NombreContacto",30,ContactBox.Text); Add(q,"@CargoContacto",30,RoleBox.Text); Add(q,"@Direccion",60,AddressBox.Text); Add(q,"@Ciudad",15,CityBox.Text); Add(q,"@Region",15,RegionBox.Text); Add(q,"@CodPostal",10,PostalBox.Text); Add(q,"@Pais",15,CountryBox.Text); Add(q,"@Telefono",24,PhoneBox.Text); Add(q,"@Fax",24,FaxBox.Text); q.Parameters.Add("@PaginaPrincipal", SqlDbType.Text).Value = (object)WebBox.Text ?? DBNull.Value;
-        c.Open(); q.ExecuteNonQuery(); MessageBox.Show("Proveedor guardado correctamente.", "Correcto", MessageBoxButton.OK, MessageBoxImage.Information); DialogResult = true;
+        c.Open(); q.ExecuteNonQuery(); MessageBox.Show("Proveedor guardado correctamente.", "Correcto", MessageBoxButton.OK, MessageBoxImage.Information); closed(true);
     }
     private bool ValidateForm()
     {
@@ -38,5 +39,5 @@ public partial class ProviderFormView : Window
     private static bool ValidPhone(string value) => string.IsNullOrWhiteSpace(value) || Regex.IsMatch(value.Trim(), @"^[0-9+().\- ]+$");
     private bool Invalid(string message, Control control) { ValidationText.Text = message; control.Focus(); return false; }
     private static void Add(SqlCommand q,string n,int size,string value) => q.Parameters.Add(n,SqlDbType.VarChar,size).Value = string.IsNullOrWhiteSpace(value) ? DBNull.Value : value.Trim();
-    private void CancelButton_Click(object sender, RoutedEventArgs e) => Close();
+    private void CancelButton_Click(object sender, RoutedEventArgs e) => closed(false);
 }
