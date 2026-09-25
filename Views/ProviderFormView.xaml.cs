@@ -1,4 +1,5 @@
 using System.Data;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Data.SqlClient;
@@ -18,12 +19,24 @@ public partial class ProviderFormView : Window
     private static string Text(SqlDataReader r, string n) { int i=r.GetOrdinal(n); return r.IsDBNull(i) ? "" : r.GetValue(i).ToString() ?? ""; }
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
-        if (string.IsNullOrWhiteSpace(CompanyBox.Text) || string.IsNullOrWhiteSpace(ContactBox.Text)) { MessageBox.Show("Nombre de compañía y contacto son obligatorios.", "Validación", MessageBoxButton.OK, MessageBoxImage.Warning); return; }
+        if (!ValidateForm()) return;
         using SqlConnection c = DatabaseConnection.GetConnection(); string proc = providerId.HasValue ? "dbo.usp_Proveedores_Actualizar" : "dbo.usp_Proveedores_Insertar"; using SqlCommand q = new(proc, c) { CommandType = CommandType.StoredProcedure };
         if (providerId.HasValue) q.Parameters.Add("@IdProveedor", SqlDbType.Int).Value = providerId.Value;
         Add(q,"@NombreCompania",40,CompanyBox.Text); Add(q,"@NombreContacto",30,ContactBox.Text); Add(q,"@CargoContacto",30,RoleBox.Text); Add(q,"@Direccion",60,AddressBox.Text); Add(q,"@Ciudad",15,CityBox.Text); Add(q,"@Region",15,RegionBox.Text); Add(q,"@CodPostal",10,PostalBox.Text); Add(q,"@Pais",15,CountryBox.Text); Add(q,"@Telefono",24,PhoneBox.Text); Add(q,"@Fax",24,FaxBox.Text); q.Parameters.Add("@PaginaPrincipal", SqlDbType.Text).Value = (object)WebBox.Text ?? DBNull.Value;
         c.Open(); q.ExecuteNonQuery(); MessageBox.Show("Proveedor guardado correctamente.", "Correcto", MessageBoxButton.OK, MessageBoxImage.Information); DialogResult = true;
     }
+    private bool ValidateForm()
+    {
+        ValidationText.Text = string.Empty;
+        if (string.IsNullOrWhiteSpace(CompanyBox.Text)) return Invalid("El nombre de compañía es obligatorio.", CompanyBox);
+        if (string.IsNullOrWhiteSpace(ContactBox.Text)) return Invalid("El nombre de contacto es obligatorio.", ContactBox);
+        if (!ValidPhone(PhoneBox.Text)) return Invalid("El teléfono solo permite números, espacios, +, paréntesis, puntos y guiones.", PhoneBox);
+        if (!ValidPhone(FaxBox.Text)) return Invalid("El fax solo permite números, espacios, +, paréntesis, puntos y guiones.", FaxBox);
+        if (!Regex.IsMatch(PostalBox.Text.Trim(), @"^[A-Za-z0-9 -]*$")) return Invalid("El código postal contiene caracteres no válidos.", PostalBox);
+        return true;
+    }
+    private static bool ValidPhone(string value) => string.IsNullOrWhiteSpace(value) || Regex.IsMatch(value.Trim(), @"^[0-9+().\- ]+$");
+    private bool Invalid(string message, Control control) { ValidationText.Text = message; control.Focus(); return false; }
     private static void Add(SqlCommand q,string n,int size,string value) => q.Parameters.Add(n,SqlDbType.VarChar,size).Value = string.IsNullOrWhiteSpace(value) ? DBNull.Value : value.Trim();
     private void CancelButton_Click(object sender, RoutedEventArgs e) => Close();
 }
