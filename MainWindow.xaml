@@ -43,7 +43,7 @@
                     <TextBlock Text="Menú" FontSize="11" FontWeight="Bold" Foreground="#4A5C00" Margin="32,8,0,8"/>
                     <Button Style="{StaticResource SideMenuButton}" Content="Productos" Click="ProductsButton_Click"/>
                     <Button Style="{StaticResource SideMenuButton}" Content="Categorías" Click="CategoriesButton_Click"/>
-                    <Button Style="{StaticResource SideMenuButton}" Content="Buscar proveedores" Click="ProviderSearchButton_Click"/>
+                    <Button Style="{StaticResource SideMenuButton}" Content="Proveedores" Click="ProviderSearchButton_Click"/>
                 </StackPanel>
                 <TextBlock Grid.Row="2" Text="Desarrollo de Aplicaciones Empresariales" TextWrapping="Wrap" FontSize="11" Foreground="#4A5C00" Margin="24,20"/>
             </Grid>
