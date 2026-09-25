@@ -36,12 +36,11 @@
             <Grid>
                 <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
                 <StackPanel Margin="24,28,24,24">
-                    <TextBlock Text="LABORATORIO 04" FontSize="13" FontWeight="Bold" Foreground="#4A5C00"/>
-                    <TextBlock Text="ADO.NET con WPF" FontSize="25" FontWeight="Bold" Foreground="#1D1D1D" Margin="0,7,0,0"/>
-                    <TextBlock Text="Base de datos Neptuno" FontSize="13" Foreground="#4A5C00" Margin="0,8,0,0"/>
+                    <TextBlock Text="Laboratirio 04" FontSize="25" FontWeight="Bold" Foreground="#1D1D1D" Margin="0,7,0,0"/>
+                    <TextBlock Text="Neptuno" FontSize="13" Foreground="#4A5C00" Margin="0,8,0,0"/>
                 </StackPanel>
                 <StackPanel Grid.Row="1" Margin="0,5,0,0">
-                    <TextBlock Text="PROCEDIMIENTOS ALMACENADOS" FontSize="11" FontWeight="Bold" Foreground="#4A5C00" Margin="32,8,0,8"/>
+                    <TextBlock Text="Menú" FontSize="11" FontWeight="Bold" Foreground="#4A5C00" Margin="32,8,0,8"/>
                     <Button Style="{StaticResource SideMenuButton}" Content="Productos" Click="ProductsButton_Click"/>
                     <Button Style="{StaticResource SideMenuButton}" Content="Categorías" Click="CategoriesButton_Click"/>
                     <Button Style="{StaticResource SideMenuButton}" Content="Buscar proveedores" Click="ProviderSearchButton_Click"/>

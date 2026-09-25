@@ -9,4 +9,10 @@ public sealed class Provider
     public string Ciudad { get; init; } = string.Empty;
     public string Pais { get; init; } = string.Empty;
     public string Telefono { get; init; } = string.Empty;
+    public string Fax { get; init; } = string.Empty;
+    public string Direccion { get; init; } = string.Empty;
+    public string Region { get; init; } = string.Empty;
+    public string CodPostal { get; init; } = string.Empty;
+    public string PaginaPrincipal { get; init; } = string.Empty;
+    public bool Activo { get; init; }
 }

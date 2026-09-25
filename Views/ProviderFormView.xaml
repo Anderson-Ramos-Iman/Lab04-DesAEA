@@ -1,0 +1,14 @@
+<Window x:Class="Semana04NeptunoWpf.Views.ProviderFormView" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Proveedor" Width="700" Height="650" WindowStartupLocation="CenterOwner" Background="#F7F8F5">
+ <ScrollViewer Padding="25"><StackPanel>
+  <TextBlock x:Name="TitleText" Text="Nuevo proveedor" FontSize="24" FontWeight="Bold" Margin="0,0,0,18"/>
+  <UniformGrid Columns="2">
+   <StackPanel Margin="5"><TextBlock Text="Nombre compañía *"/><TextBox x:Name="CompanyBox"/></StackPanel><StackPanel Margin="5"><TextBlock Text="Nombre contacto *"/><TextBox x:Name="ContactBox"/></StackPanel>
+   <StackPanel Margin="5"><TextBlock Text="Cargo contacto"/><TextBox x:Name="RoleBox"/></StackPanel><StackPanel Margin="5"><TextBlock Text="Dirección"/><TextBox x:Name="AddressBox"/></StackPanel>
+   <StackPanel Margin="5"><TextBlock Text="Ciudad"/><TextBox x:Name="CityBox"/></StackPanel><StackPanel Margin="5"><TextBlock Text="Región"/><TextBox x:Name="RegionBox"/></StackPanel>
+   <StackPanel Margin="5"><TextBlock Text="Código postal"/><TextBox x:Name="PostalBox"/></StackPanel><StackPanel Margin="5"><TextBlock Text="País"/><TextBox x:Name="CountryBox"/></StackPanel>
+   <StackPanel Margin="5"><TextBlock Text="Teléfono"/><TextBox x:Name="PhoneBox"/></StackPanel><StackPanel Margin="5"><TextBlock Text="Fax"/><TextBox x:Name="FaxBox"/></StackPanel>
+   <StackPanel Margin="5"><TextBlock Text="Página principal"/><TextBox x:Name="WebBox"/></StackPanel>
+  </UniformGrid>
+  <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0"><Button Content="Guardar" Click="SaveButton_Click" Background="#B7E800" Padding="25,10" Margin="5"/><Button Content="Cancelar" Click="CancelButton_Click" Padding="25,10" Margin="5"/></StackPanel>
+ </StackPanel></ScrollViewer>
+</Window>

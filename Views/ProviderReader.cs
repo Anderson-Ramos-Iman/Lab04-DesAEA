@@ -19,7 +19,9 @@ internal static class ProviderReader
                 CargoContacto = Text(reader, "cargocontacto"),
                 Ciudad = Text(reader, "ciudad"),
                 Pais = Text(reader, "pais"),
-                Telefono = Text(reader, "telefono")
+                Telefono = Text(reader, "telefono"), Fax = Text(reader, "fax"), Direccion = Text(reader, "direccion"),
+                Region = Text(reader, "region"), CodPostal = Text(reader, "codPostal"), PaginaPrincipal = Text(reader, "paginaprincipal"),
+                Activo = reader.GetBoolean(reader.GetOrdinal("Activo"))
             });
         }
         return providers;

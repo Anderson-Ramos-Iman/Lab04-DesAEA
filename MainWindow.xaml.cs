@@ -23,5 +23,5 @@ public partial class MainWindow : Window
         ShowView(new CategoriesView(), "Categorías", "Punto 4: listado mediante SqlDataReader.");
 
     private void ProviderSearchButton_Click(object sender, RoutedEventArgs e) =>
-        ShowView(new ProviderSearchView(), "Buscar proveedores", "Punto 6: búsqueda por contacto y ciudad mediante SqlDataReader.");
+        ShowView(new ProviderSearchView(), "Proveedores", "CRUD con procedimientos almacenados y SqlDataReader.");
 }

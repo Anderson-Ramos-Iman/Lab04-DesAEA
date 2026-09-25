@@ -5,17 +5,18 @@
         <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="*"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
         <StackPanel Margin="0,0,0,20">
             <TextBlock Text="Buscar proveedores" FontSize="20" FontWeight="SemiBold"/>
-            <TextBlock Text="Complete uno o ambos criterios. La búsqueda usa nombre de contacto y ciudad." FontSize="13" Foreground="#68706A" Margin="0,5,0,0"/>
+            <TextBlock Text="Búsqueda en tiempo real por contacto y ciudad." FontSize="13" Foreground="#68706A" Margin="0,5,0,0"/>
+            <Button Content="Nuevo proveedor" Click="NewButton_Click" Background="#B7E800" BorderBrush="#B7E800" FontWeight="SemiBold" Padding="16,8" HorizontalAlignment="Left" Margin="0,12,0,0"/>
         </StackPanel>
         <Grid Grid.Row="1" Margin="0,0,0,20">
             <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
             <StackPanel Margin="0,0,12,0">
                 <TextBlock Text="Nombre de contacto" FontSize="12" Foreground="#68706A" Margin="2,0,0,5"/>
-                <TextBox x:Name="ContactTextBox" Height="42" FontSize="14" Padding="12,8" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="ContactTextBox" TextChanged="CriteriaTextChanged" Height="42" FontSize="14" Padding="12,8" VerticalContentAlignment="Center"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Margin="0,0,12,0">
                 <TextBlock Text="Ciudad" FontSize="12" Foreground="#68706A" Margin="2,0,0,5"/>
-                <TextBox x:Name="CityTextBox" Height="42" FontSize="14" Padding="12,8" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="CityTextBox" TextChanged="CriteriaTextChanged" Height="42" FontSize="14" Padding="12,8" VerticalContentAlignment="Center"/>
             </StackPanel>
             <Button Grid.Column="2" Content="Buscar" Click="SearchButton_Click" Background="#B7E800" BorderBrush="#B7E800" FontWeight="SemiBold" Padding="24,10" VerticalAlignment="Bottom"/>
         </Grid>
@@ -28,6 +29,7 @@
                 <DataGridTextColumn Header="Ciudad" Binding="{Binding Ciudad}" Width="110"/>
                 <DataGridTextColumn Header="País" Binding="{Binding Pais}" Width="100"/>
                 <DataGridTextColumn Header="Teléfono" Binding="{Binding Telefono}" Width="125"/>
+                <DataGridTemplateColumn Header="Acciones" Width="170"><DataGridTemplateColumn.CellTemplate><DataTemplate><StackPanel Orientation="Horizontal"><Button Content="Editar" Click="EditButton_Click" Margin="2" Padding="7,3"/><Button Content="Borrar" Click="DeleteButton_Click" Margin="2" Padding="7,3"/></StackPanel></DataTemplate></DataGridTemplateColumn.CellTemplate></DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <TextBlock x:Name="StatusText" Grid.Row="3" Text="Ejemplo: Charlotte y Londres." FontSize="13" Foreground="#68706A" Margin="0,18,0,0"/>
